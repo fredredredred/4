@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculateur de QI Humoristique</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            text-align: center;
+            background-color: #f0f0f0;
+        }
+        h1 {
+            color: #333;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+        }
+        label {
+            display: block;
+            margin-top: 10px;
+            font-weight: bold;
+        }
+        input {
+            width: 100%;
+            padding: 8px;
+            margin-top: 5px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-top: 15px;
+            font-size: 16px;
+            transition: background-color 0.3s;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        #resultat {
+            margin-top: 20px;
+            font-weight: bold;
+            font-size: 1.2em;
+            background-color: #fff;
+            padding: 15px;
+            border-radius: 4px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        #emojiQI {
+            font-size: 80px;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Calculateur de QI Humoristique</h1>
+    <p>Attention : Ceci est un calculateur humoristique et ne représente en aucun cas un véritable test de QI !</p>
+    <form id="qiForm">
+        <label for="nom">Votre nom :</label>
+        <input type="text" id="nom" required>
+        
+        <label for="age">Votre âge :</label>
+        <input type="number" id="age" required>
+        
+        <label for="orteils">Nombre d'orteils :</label>
+        <input type="number" id="orteils" min="0" max="20" required>
+        
+        <button type="submit">Calculer mon "QI"</button>
+    </form>
+    <div id="resultat"></div>
+    <div id="emojiQI"></div>
+
+    <script>
+        document.getElementById('qiForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const nom = document.getElementById('nom').value;
+            const age = parseInt(document.getElementById('age').value);
+            const orteils = parseInt(document.getElementById('orteils').value);
+            
+            if (nom && age > 0 && orteils >= 0 && orteils <= 20) {
+                const baseQI = Math.floor(Math.random() * 50) + 75;
+                const variableAleatoire = Math.floor(Math.random() * 21) - 10;
+                const bonusOrteils = (orteils - 10) * 2;
+                const qiTotal = baseQI + variableAleatoire + bonusOrteils;
+                
+                let interpretation = '';
+                let emoji = '';
+
+                if (qiTotal < 80) {
+                    interpretation = "Vous êtes unique, comme un cornichon dans un pot de confiture !";
+                    emoji = '🥒🍯';
+                } else if (qiTotal < 90) {
+                    interpretation = "Votre cerveau fonctionne à la vitesse d'un escargot sous caféine !";
+                    emoji = '🐌☕';
+                } else if (qiTotal < 100) {
+                    interpretation = "Vous êtes dans la moyenne, comme une pizza 4 fromages !";
+                    emoji = '🍕🧀';
+                } else if (qiTotal < 110) {
+                    interpretation = "Pas mal ! Vous pourriez presque battre un dauphin aux échecs !";
+                    emoji = '🐬♟️';
+                } else if (qiTotal < 120) {
+                    interpretation = "Impressionnant ! Vous êtes le Einstein des blagues de papa !";
+                    emoji = '🧠😂';
+                } else {
+                    interpretation = "Waouh ! Votre QI est si élevé qu'il pourrait toucher le plafond !";
+                    emoji = '🚀🌟';
+                }
+                
+                let commentaireOrteils = "";
+                if (orteils < 10) {
+                    commentaireOrteils = `Avec seulement ${orteils} orteils, vous avez un handicap de ${(10-orteils)*2} points de QI. Mais ne vous en faites pas, les grands esprits sont souvent incompris !`;
+                } else if (orteils > 10) {
+                    commentaireOrteils = `Avec ${orteils} orteils, vous bénéficiez d'un bonus de ${(orteils-10)*2} points de QI. Être différent a ses avantages !`;
+                } else {
+                    commentaireOrteils = "Avec 10 orteils, vous êtes dans la norme. Mais qui veut être normal de nos jours ?";
+                }
+                
+                document.getElementById('resultat').innerHTML = `${nom}, votre "QI" humoristique est de ${qiTotal}.<br><br>${interpretation}<br><br>${commentaireOrteils}`;
+                document.getElementById('emojiQI').textContent = emoji + '🦶'.repeat(Math.min(orteils, 5));
+            } else {
+                document.getElementById('resultat').innerHTML = 'Veuillez entrer des valeurs valides. Même un hamster à trois pattes pourrait le faire !';
+                document.getElementById('emojiQI').textContent = '🐹❓🦶';
+            }
+        });
+    </script>
+</body>
+</html>
